@@ -1,0 +1,154 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-family: roboto, helvetica, verdana, sans-serif;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.header{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	background: #8052dc;
+}
+
+.header h1{
+	animation: glow 2s ease-in-out infinite alternate;
+}
+
+.header h2{
+	margin-top: 0;
+	margin-bottom: 75px;
+}
+
+
+.body{
+	flex: 3 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 50px;
+	background: #8052dc;
+}
+
+.body div {
+	border: 5px solid black;
+	height: 221px;
+	cursor: pointer;
+	transition: transform 1s;
+}
+
+.body div:hover{
+	-webkit-transform: scale(.85);
+	-ms-transform: scale(.85);
+	transform: scale(.85);
+	transition: 1s ease;
+}
+
+.body div:active{
+	border: 5px solid #d9483c;
+	transition: .1s;
+}
+
+.diagBody{
+	background: #dc5269;
+}
+
+.diagBody2{
+	height: 100px;
+	background: #8052dc;
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0%);
+}
+
+.score{
+	color: white;
+	display: flex;
+	flex-wrap: wrap;
+	min-height: 200px;
+	justify-content: center;
+	background: #dc5269;
+	font-size: 24px;
+}
+
+.score p:nth-child(2){
+	margin-left: 100px;
+}
+
+.scoreMessage{
+	flex-basis: 100%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.scoreMessage button{
+	cursor: pointer;
+	display: none;
+	border: none;
+	padding: 5px 25px 5px 25px;
+	border-radius: 8px;
+	font-size: 24px;
+	color: white;
+	background: black;
+}
+
+.scoreMessage button:hover{
+	color: black;
+	background: white;
+}
+
+.diagScore{
+	background: #c86575;
+}
+
+.diagScore2{
+	height: 100px;
+	background: #dc5269;
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0%);
+}
+
+.footer{
+	flex: 3 0 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	background: #c86575;
+}
+
+.footer img {
+	height: 100px;
+	width: auto;
+	margin-bottom: 15px;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+@keyframes waviy {
+	0%,40%,100%{
+		transform: translateY(0)
+	}
+	20%{
+		transform: translateY(-20px)
+	}
+}
+
+@keyframes glow {
+    from{
+      text-shadow: 0 0 20px #7341d8;
+    }
+    to{
+      text-shadow: 0 0 30px #5a27be, 0 0 10px #461e94;
+    }
+ }

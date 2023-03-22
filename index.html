@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock Paper Scissor</title>
+	<link rel="stylesheet" href="style.css">
+	<script>
+	const maxScore = 5;
+	let currScoreHuman = 0;
+	let currScoreComp = 0;
+	let gameFinished = false;
+	
+	function getComputerChoice(){
+		let randomInt = Math.floor(Math.random() * 3);
+		let random;
+		switch(randomInt){
+			case 0:
+				random = "rock"
+				return random;
+			case 1:
+				random = "scissor";
+				return random;
+			case 2:
+				random = "paper";
+				return random;
+		}	
+	}
+	
+	function deactivateDivs(){
+		let rock = document.getElementById('rock');
+		let paper = document.getElementById('paper');
+		let scissor = document.getElementById('scissor');
+		
+		rock.removeAttribute('onclick');
+		paper.removeAttribute('onclick');
+		scissor.removeAttribute('onclick');
+		
+		rock.style.pointerEvents = "none";
+		paper.style.pointerEvents = "none";
+		scissor.style.pointerEvents = "none";
+	}
+	
+	function activateDivs(){
+		let rock = document.getElementById('rock');
+		let paper = document.getElementById('paper');
+		let scissor = document.getElementById('scissor');
+		
+		rock.setAttribute("onclick", "playRound('rock', getComputerChoice());");
+		paper.setAttribute("onclick", "playRound('paper', getComputerChoice());");
+		scissor.setAttribute("onclick", "playRound('scissor', getComputerChoice());");
+		
+		rock.style.pointerEvents = "auto";
+		paper.style.pointerEvents = "auto";
+		scissor.style.pointerEvents = "auto";
+	}
+	
+	function checkIfWon(player){
+		if(player == 5){
+			gameFinished = true;
+			deactivateDivs();
+			if(player == currScoreComp)
+				document.getElementById('gameMessage').innerHTML = "<b>You just lost THE GAME!</b>";
+			else
+				document.getElementById('gameMessage').innerHTML = "<b>You just won THE GAME!</b>";
+			document.getElementById('resetButton').style.display = "block";
+			document.getElementById('gameMessage').style.animation = "waviy 1s infinite";
+			return;
+		}
+	}
+	
+	function playRound(playerSelection, computerSelection){			
+		if(playerSelection == "rock" && computerSelection == "paper"){
+			currScoreComp++;
+			checkIfWon(currScoreComp);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You lose!</b> Computer has chosen ${computerSelection} - ${computerSelection} beats rock.`;
+		}else if(playerSelection == "rock" && computerSelection == "scissor"){
+			currScoreHuman++;
+			checkIfWon(currScoreHuman);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You win!</b> Computer has chosen ${computerSelection} - ${playerSelection} beats scissor.`;
+		}else if(playerSelection == "paper" && computerSelection == "rock"){
+			currScoreHuman++;
+			checkIfWon(currScoreHuman);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You win!</b> Computer has chosen ${computerSelection} - ${playerSelection} beats rock.`;
+		}else if(playerSelection == "paper" && computerSelection == "scissor"){
+			currScoreComp++;
+			checkIfWon(currScoreComp);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You lose!</b> Computer has chosen ${computerSelection} - ${computerSelection} beats paper.`;
+		}else if(playerSelection == "scissor" && computerSelection == "rock"){
+			currScoreComp++;
+			checkIfWon(currScoreComp);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You lose!</b> Computer has chosen ${computerSelection} - ${computerSelection} beats scissor.`;
+		}else if(playerSelection == "scissor" && computerSelection == "paper"){
+			currScoreHuman++;
+			checkIfWon(currScoreHuman);
+			if(!gameFinished)
+				document.getElementById('gameMessage').innerHTML = `<b>You win!</b> Computer has chosen ${computerSelection} - ${playerSelection} beats paper.`;
+		}else if(playerSelection == computerSelection){
+			document.getElementById('gameMessage').innerHTML = `<b>You tied!</b> Computer has chosen ${computerSelection}.`;
+		}
+		
+		document.getElementById('scoreHuman').innerHTML = currScoreHuman;
+		document.getElementById('scoreComputer').innerHTML = currScoreComp;
+	}
+	
+	function resetGame(){
+		gameFinished = false;
+		currScoreHuman = 0;
+		currScoreComp = 0;
+		activateDivs();
+		document.getElementById('gameMessage').style.animation = "none";
+		document.getElementById('gameMessage').innerHTML = "Choose your weapon to start.";
+		document.getElementById('resetButton').style.display = "none";
+		document.getElementById('scoreHuman').innerHTML = currScoreHuman;
+		document.getElementById('scoreComputer').innerHTML = currScoreComp;
+	}
+	</script>
+  </head>
+  <body>
+  <div class="wrapper">
+	<div class="header">
+	<h1>Rock - Paper - Scissor</h1>
+	<h2>First to five wins!</h2>
+	</div>
+	<div class="body">
+		<div class="rock" id="rock" onclick="playRound('rock', getComputerChoice());">
+			<img src="./img/rock.jpg">
+		</div>
+		<div class="paper" id="paper" onclick="playRound('paper', getComputerChoice());">
+			<img src="./img/paper.jpg">
+		</div>
+		<div class="scissor" id="scissor" onclick="playRound('scissor', getComputerChoice());">
+			<img src="./img/scissor.jpg">
+		</div>
+	</div>
+	<div class="diagBody">
+		<div class="diagBody2">
+		</div>
+	</div>
+	<div class="score">
+		<p>Your score: <span class="bold" id="scoreHuman"><script>document.getElementById('scoreHuman').innerHTML = currScoreHuman;</script></span></p>
+		<p>Computerscore: <span class="bold" id="scoreComputer"><script>document.getElementById('scoreComputer').innerHTML = currScoreComp;</script></span></p>
+		<div class="scoreMessage">
+			<p id="gameMessage">Choose your weapon to start.</p>
+			<button id="resetButton" onclick="resetGame();">Reset</button>
+		</div>
+	</div>
+	<div class="diagScore">
+		<div class="diagScore2">
+		</div>
+	</div>
+	<div class="footer">
+		<h3>Project: Rock Paper Scissors - by</h3><a href="https://github.com/iParisienne/odin-projects/tree/main/foundations/rock-paper-scissor"><img src="./img/logo.png"></a>
+	</div>
+  </div>
+  </body>
+</html>
